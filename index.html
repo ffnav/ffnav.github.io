@@ -215,8 +215,9 @@
           <p class="figure-caption">
             Three walks reconstructed from five input budgets. Deep plum is mapped floor reachable
             from the goal (ring), green is mapped floor outside that component, and black is the
-            camera track. Every cell covers the same 23 &times; 11.5&nbsp;m area, and each row is
-            centred in its frontend's output frame.
+            camera track. Every cell covers the same 23 &times; 11.5&nbsp;m area. Each row is centred
+            in its frontend's output frame. The rows show the 20th-percentile, median and maximum
+            retained-floor cases among the 13 episodes scored by all three frontends.
           </p>
         </div>
       </div>
@@ -229,19 +230,6 @@
   <div class="container is-max-desktop">
     <p class="section-eyebrow has-text-centered">Posed maps</p>
     <h2 class="title is-3 has-text-centered">Separating depth from pose</h2>
-    <div class="columns is-centered">
-      <div class="column">
-        <div class="figure-card">
-          <img src="./static/images/inherit.png"
-               alt="The same predicted depth placed at predicted poses versus recorded poses.">
-          <p class="figure-caption">
-            Depth and pose leave these models together. Placing the same predicted depth at recorded
-            odometry poses turns many failed maps into drivable ones, while the floor graph's
-            connectivity stays unchanged.
-          </p>
-        </div>
-      </div>
-    </div>
     <div class="columns is-centered" style="margin-top: 0.5rem;">
       <div class="column">
         <div class="figure-card is-narrow">
@@ -250,7 +238,7 @@
           <p class="figure-caption">
             Recorded-pose Scal3R under accumulated synthetic pose noise. Grey points are the three
             noise seeds. Arrivals fall as endpoint drift grows, while median reachable floor stays
-            nearly flat &mdash; the map still looks fine as the robot stops arriving.
+            nearly flat.
           </p>
         </div>
       </div>
@@ -278,45 +266,16 @@
       </div>
     </div>
 
-    <p class="section-eyebrow has-text-centered" style="margin-top: 2.75rem;">Following the plan</p>
-    <h2 class="title is-3 has-text-centered">The plan and the drive, side by side</h2>
-    <div class="columns is-centered">
-      <div class="column is-four-fifths">
-        <p class="has-text-centered" style="color:#5a6573; font-size:0.95rem;">
-          Each panel advances one case's driven path over the plan it was given, against the
-          recorded walk in grey. Red marks a collision.
-        </p>
-      </div>
-    </div>
-    <div class="video-grid is-single">
-      <div class="video-card">
-        <video controls preload="none" playsinline
-               poster="./static/images/poster_followA.jpg"
-               src="./static/videos/follow_routeA.mp4"></video>
-        <div class="video-meta">
-          <span class="video-tag">Route A</span>
-          <h4>11.25&nbsp;m through a doorway</h4>
-          <p>The plan each case drove, and the path it actually took, advancing together. Where a plan sits away from the recorded walk, the drive follows it there.</p>
-        </div>
-      </div>
-      <div class="video-card">
-        <video controls preload="none" playsinline
-               poster="./static/images/poster_followB.jpg"
-               src="./static/videos/follow_routeB.mp4"></video>
-        <div class="video-meta">
-          <span class="video-tag">Route B</span>
-          <h4>9.11&nbsp;m, a door then a U-turn</h4>
-          <p>The same four cases on a route that turns back on itself.</p>
-        </div>
-      </div>
-      <div class="video-card">
-        <video controls preload="none" playsinline
-               poster="./static/images/poster_followC.jpg"
-               src="./static/videos/follow_routeC.mp4"></video>
-        <div class="video-meta">
-          <span class="video-tag">Route C</span>
-          <h4>7.90&nbsp;m through a curtained door</h4>
-          <p>The shortest of the three, and the only one where every case left a plan.</p>
+    <div class="columns is-centered" style="margin-top: 0.5rem;">
+      <div class="column">
+        <div class="figure-card">
+          <img src="./static/images/inherit.png"
+               alt="Every Go2 run: the map's endpoint error against how far from the walk's end the robot stopped.">
+          <p class="figure-caption">
+            Every Go2 run. Across is the map's endpoint error before the robot moves. Up is how far
+            from the walk's end the robot stopped. Both axes are logarithmic. LoTIS sits in the strip
+            because it carries no map.
+          </p>
         </div>
       </div>
     </div>
@@ -339,8 +298,8 @@
                 <tr><th>Case</th><th>Map</th><th>Poses</th><th>Role</th></tr>
               </thead>
               <tbody>
-                <tr class="row-ours"><td>P1</td><td>Scal3R depth</td><td>Scal3R's own predicted poses</td><td>Feed-forward map, used as predicted</td></tr>
-                <tr class="row-ours"><td>P2</td><td>the same Scal3R depth</td><td>robot odometry</td><td>Same depth, correct placement</td></tr>
+                <tr><td>P1</td><td>Scal3R depth</td><td>Scal3R's own predicted poses</td><td>Feed-forward map, used as predicted</td></tr>
+                <tr><td>P2</td><td>the same Scal3R depth</td><td>robot odometry</td><td>Same depth, correct placement</td></tr>
                 <tr><td>P3</td><td>the lidar's own geometry</td><td>robot odometry</td><td>Upper reference</td></tr>
                 <tr><td>P4</td><td>none &mdash; LoTIS</td><td>&mdash;</td><td>Relative method, no map</td></tr>
               </tbody>
@@ -362,6 +321,18 @@
           One run per case on Route A, the 11.25&nbsp;m route through a doorway. Audio removed.
           The plots below carry every trial.
         </p>
+      </div>
+    </div>
+    <div class="video-grid is-single">
+      <div class="video-card">
+        <video controls preload="none" playsinline
+               poster="./static/images/poster_full4x.jpg"
+               src="./static/videos/RouteA-full-4x.mp4"></video>
+        <div class="video-meta">
+          <span class="video-tag">Route A &middot; full session</span>
+          <h4>Two consecutive recordings, at 4&times; speed</h4>
+          <p>The route driven end to end across both recordings, played at four times real time.</p>
+        </div>
       </div>
     </div>
     <div class="video-grid">
@@ -403,6 +374,49 @@
           <span class="video-tag">P4 &middot; Route A</span>
           <h4>LoTIS, carrying no map</h4>
           <p>A relative method that conditions each action on the current view, with no metric map at all.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-eyebrow has-text-centered" style="margin-top: 2.75rem;">Following the plan</p>
+    <h2 class="title is-3 has-text-centered">The plan and the drive, side by side</h2>
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <p class="has-text-centered" style="color:#5a6573; font-size:0.95rem;">
+          Each panel advances one case's driven path over the plan it was given, against the
+          recorded walk in grey.
+        </p>
+      </div>
+    </div>
+    <div class="video-grid is-single">
+      <div class="video-card">
+        <video controls preload="none" playsinline
+               poster="./static/images/poster_followA.jpg"
+               src="./static/videos/follow_routeA.mp4"></video>
+        <div class="video-meta">
+          <span class="video-tag">Route A</span>
+          <h4>11.25&nbsp;m through a doorway</h4>
+          <p>The plan each case drove, and the path it actually took, advancing together. Where a plan sits away from the recorded walk, the drive follows it there.</p>
+        </div>
+      </div>
+      <div class="video-card">
+        <video controls preload="none" playsinline
+               poster="./static/images/poster_followB.jpg"
+               src="./static/videos/follow_routeB.mp4"></video>
+        <div class="video-meta">
+          <span class="video-tag">Route B</span>
+          <h4>9.11&nbsp;m, a door then a U-turn</h4>
+          <p>The same four cases on a route that turns back on itself.</p>
+        </div>
+      </div>
+      <div class="video-card">
+        <video controls preload="none" playsinline
+               poster="./static/images/poster_followC.jpg"
+               src="./static/videos/follow_routeC.mp4"></video>
+        <div class="video-meta">
+          <span class="video-tag">Route C</span>
+          <h4>7.90&nbsp;m through a curtained door</h4>
+          <p>The shortest of the three, and the only one where every case left a plan.</p>
         </div>
       </div>
     </div>
