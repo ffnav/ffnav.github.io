@@ -285,8 +285,15 @@ table.results-table .row-ours td:first-child {
   color: var(--accent-dark);
 }
 /* The first route follows the section text, so it needs no rule and less air. */
-.route-heading:first-of-type {
+.route-heading.is-first {
   margin-top: 1.75rem;
   padding-top: 0;
   border-top: none;
+}
+
+.sub-heading {
+  margin-top: 2.5rem;
+  margin-bottom: 1.1rem;
+  font-family: 'Google Sans', sans-serif;
+  color: var(--accent-dark);
 }

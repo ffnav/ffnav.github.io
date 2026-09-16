@@ -230,27 +230,41 @@
   <div class="container is-max-desktop">
     <p class="section-eyebrow has-text-centered">Posed maps</p>
     <h2 class="title is-3 has-text-centered">Separating depth from pose</h2>
-    <div class="columns is-centered" style="margin-top: 0.5rem;">
-      <div class="column">
-        <div class="figure-card is-narrow">
-          <img src="./static/images/odometry_sensitivity.png"
-               alt="Arrivals and reachable floor under accumulated synthetic pose noise.">
-          <p class="figure-caption">
-            Recorded-pose Scal3R under accumulated synthetic pose noise. Grey points are the three
-            noise seeds. Arrivals fall as endpoint drift grows, while median reachable floor stays
-            nearly flat.
+
+    <h3 class="title is-5 has-text-centered sub-heading">What P1&ndash;P4 cases mean</h3>
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="content">
+          <p>
+            Each route is driven under four conditions. P1 and P2 use the same predicted depth and
+            differ only in whose poses it is placed at, which isolates pose error from depth error.
+            P3 and P4 are references. P3 uses one map the robot built itself. P4 has no map at all.
+            These labels appear in the figures below and in the supplementary videos.
+          </p>
+          <div class="table-wrap">
+            <table class="results-table">
+              <thead>
+                <tr><th>Case</th><th>Map</th><th>Poses</th><th>Role</th><th>In the figures</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>P1</td><td>Scal3R depth</td><td>Scal3R's own predicted poses</td><td>Feed-forward map, used as predicted</td><td>Scal3R depth, Scal3R poses</td></tr>
+                <tr><td>P2</td><td>the same Scal3R depth</td><td>robot odometry</td><td>Same depth, correct placement</td><td>Scal3R depth, robot odometry</td></tr>
+                <tr><td>P3</td><td>the lidar's own geometry</td><td>robot odometry</td><td>Upper reference</td><td>the robot's lidar</td></tr>
+                <tr><td>P4</td><td>none &mdash; LoTIS</td><td>&mdash;</td><td>Relative method, no map</td><td>LoTIS, no map at all</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="table-note">
+            Because P1 and P2 carry the same predicted surfaces, any difference between them below
+            is pose error and nothing else. The paper's figures name these cases by description
+            rather than by number; the scatter of every run spells P1 as "Scal3R depth, its own
+            poses" and P4 as "LoTIS, no map".
           </p>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ============================ GO2 ============================ -->
-<section class="section" style="padding-top: 0;">
-  <div class="container is-max-desktop">
-    <p class="section-eyebrow has-text-centered">Real world</p>
-    <h2 class="title is-3 has-text-centered">Driving a Unitree Go2</h2>
+
     <div class="columns is-centered">
       <div class="column">
         <div class="figure-card">
@@ -268,6 +282,22 @@
 
     <div class="columns is-centered" style="margin-top: 0.5rem;">
       <div class="column">
+        <div class="figure-card is-narrow">
+          <img src="./static/images/odometry_sensitivity.png"
+               alt="Arrivals and reachable floor under accumulated synthetic pose noise.">
+          <p class="figure-caption">
+            Recorded-pose Scal3R under accumulated synthetic pose noise. Grey points are the three
+            noise seeds. Arrivals fall as endpoint drift grows, while median reachable floor stays
+            nearly flat.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="title is-5 has-text-centered route-heading">Driving a quadruped</h3>
+
+    <div class="columns is-centered" style="margin-top: 0.5rem;">
+      <div class="column">
         <div class="figure-card is-medium">
           <img src="./static/images/inherit.png"
                alt="Every Go2 run: the map's endpoint error against how far from the walk's end the robot stopped.">
@@ -275,38 +305,6 @@
             Every Go2 run. Across is the map's endpoint error before the robot moves. Up is how far
             from the walk's end the robot stopped. Both axes are logarithmic. LoTIS sits in the strip
             because it carries no map.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <p class="section-eyebrow has-text-centered" style="margin-top: 2.75rem;">The four cases</p>
-    <h2 class="title is-3 has-text-centered">What P1&ndash;P4 cases mean</h2>
-    <div class="columns is-centered">
-      <div class="column is-four-fifths">
-        <div class="content">
-          <p>
-            Each route is driven under four conditions. P1 and P2 use the same predicted depth and
-            differ only in whose poses it is placed at, which isolates pose error from depth error.
-            P3 and P4 are references. P3 uses one map the robot built itself. P4 has no map at all.
-            These labels appear in the figures below and in the supplementary videos.
-          </p>
-          <div class="table-wrap">
-            <table class="results-table">
-              <thead>
-                <tr><th>Case</th><th>Map</th><th>Poses</th><th>Role</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>P1</td><td>Scal3R depth</td><td>Scal3R's own predicted poses</td><td>Feed-forward map, used as predicted</td></tr>
-                <tr><td>P2</td><td>the same Scal3R depth</td><td>robot odometry</td><td>Same depth, correct placement</td></tr>
-                <tr><td>P3</td><td>the lidar's own geometry</td><td>robot odometry</td><td>Upper reference</td></tr>
-                <tr><td>P4</td><td>none &mdash; LoTIS</td><td>&mdash;</td><td>Relative method, no map</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="table-note">
-            Because P1 and P2 carry the same predicted surfaces, any difference between them below
-            is pose error and nothing else.
           </p>
         </div>
       </div>
@@ -392,7 +390,7 @@
       </div>
     </div>
 
-    <h3 class="title is-5 has-text-centered route-heading">Route A &middot; 11.25&nbsp;m through a doorway</h3>
+    <h3 class="title is-5 has-text-centered route-heading is-first">Route A &middot; 11.25&nbsp;m through a doorway</h3>
 
     <div class="columns is-centered">
       <div class="column">
