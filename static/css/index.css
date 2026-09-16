@@ -169,58 +169,6 @@ body {
   color: #5a6573;
 }
 
-/* Headline numbers */
-.stat-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
-  margin-top: 1.5rem;
-}
-@media screen and (max-width: 768px) {
-  .stat-row { grid-template-columns: 1fr; }
-}
-.stat-card {
-  background: #fff;
-  border: 1px solid #e7ebf1;
-  border-radius: 14px;
-  padding: 1.25rem 1rem;
-  box-shadow: 0 4px 16px rgba(20, 40, 90, 0.06);
-  text-align: center;
-}
-.stat-card .stat-value {
-  font-family: 'Google Sans', sans-serif;
-  font-size: 1.9rem;
-  font-weight: 700;
-  color: var(--accent-dark);
-  font-variant-numeric: tabular-nums;
-  line-height: 1.1;
-}
-.stat-card .stat-label {
-  font-size: 0.86rem;
-  color: #5a6573;
-  margin-top: 0.4rem;
-}
-
-.contrib-list li {
-  margin-bottom: 0.5rem;
-}
-
-/* BibTeX */
-pre.bibtex {
-  background: #0f1320;
-  color: #e6eaf2;
-  border-radius: 12px;
-  padding: 1.25rem 1.4rem;
-  overflow-x: auto;
-  font-size: 0.85rem;
-  line-height: 1.5;
-}
-
-.anon-note {
-  font-size: 0.85rem;
-  color: #6b7280;
-}
-
 /* Results tables */
 .table-wrap {
   overflow-x: auto;
@@ -279,6 +227,7 @@ table.results-table .row-ours td:first-child {
 @media screen and (max-width: 768px) {
   .video-grid { grid-template-columns: 1fr; }
 }
+.video-grid.is-single { grid-template-columns: 1fr; }
 .video-card {
   background: #fff;
   border: 1px solid #e7ebf1;

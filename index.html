@@ -123,28 +123,6 @@
   </div>
 </section>
 
-<!-- ============================ KEY NUMBERS ============================ -->
-<section class="section" style="padding-top: 0;">
-  <div class="container is-max-desktop">
-    <p class="section-eyebrow has-text-centered">Headline result</p>
-    <h2 class="title is-3 has-text-centered">Pose, not geometry, is what breaks</h2>
-    <div class="stat-row">
-      <div class="stat-card">
-        <div class="stat-value">2 / 32</div>
-        <div class="stat-label">arrivals with Scal3R's own predicted poses</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value">26 / 32</div>
-        <div class="stat-label">arrivals with the same depth at recorded poses</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value">unchanged</div>
-        <div class="stat-label">floor-graph connectivity under both pose sets</div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============================ CONTRIBUTIONS ============================ -->
 <section class="section" style="padding-top: 0;">
   <div class="container is-max-desktop">
@@ -296,6 +274,49 @@
             Bottom, the three routes from above on the robot's lidar, with all 34 runs, one colour
             per case.
           </p>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-eyebrow has-text-centered" style="margin-top: 2.75rem;">Following the plan</p>
+    <h2 class="title is-3 has-text-centered">The plan and the drive, side by side</h2>
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <p class="has-text-centered" style="color:#5a6573; font-size:0.95rem;">
+          Each panel advances one case's driven path over the plan it was given, against the
+          recorded walk in grey. Red marks a collision.
+        </p>
+      </div>
+    </div>
+    <div class="video-grid is-single">
+      <div class="video-card">
+        <video controls preload="none" playsinline
+               poster="./static/images/poster_followA.jpg"
+               src="./static/videos/follow_routeA.mp4"></video>
+        <div class="video-meta">
+          <span class="video-tag">Route A</span>
+          <h4>11.25&nbsp;m through a doorway</h4>
+          <p>The plan each case drove, and the path it actually took, advancing together. Where a plan sits away from the recorded walk, the drive follows it there.</p>
+        </div>
+      </div>
+      <div class="video-card">
+        <video controls preload="none" playsinline
+               poster="./static/images/poster_followB.jpg"
+               src="./static/videos/follow_routeB.mp4"></video>
+        <div class="video-meta">
+          <span class="video-tag">Route B</span>
+          <h4>9.11&nbsp;m, a door then a U-turn</h4>
+          <p>The same four cases on a route that turns back on itself.</p>
+        </div>
+      </div>
+      <div class="video-card">
+        <video controls preload="none" playsinline
+               poster="./static/images/poster_followC.jpg"
+               src="./static/videos/follow_routeC.mp4"></video>
+        <div class="video-meta">
+          <span class="video-tag">Route C</span>
+          <h4>7.90&nbsp;m through a curtained door</h4>
+          <p>The shortest of the three, and the only one where every case left a plan.</p>
         </div>
       </div>
     </div>
