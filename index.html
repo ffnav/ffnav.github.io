@@ -334,6 +334,59 @@
       </div>
     </div>
 
+    <p class="section-eyebrow has-text-centered" style="margin-top: 2.75rem;">Demonstrations</p>
+    <h2 class="title is-3 has-text-centered">Route A, driven under each case</h2>
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <p class="has-text-centered" style="color:#5a6573; font-size:0.95rem;">
+          One run per case on Route A, the 11.25&nbsp;m route through a doorway. Audio removed.
+          The plots below carry every trial.
+        </p>
+      </div>
+    </div>
+    <div class="video-grid">
+      <div class="video-card">
+        <video controls preload="none" playsinline
+               poster="./static/images/poster_P1.jpg"
+               src="./static/videos/RouteA-P1.mp4"></video>
+        <div class="video-meta">
+          <span class="video-tag">P1 &middot; Route A</span>
+          <h4>Scal3R depth at Scal3R's own poses</h4>
+          <p>The feed-forward map used exactly as predicted. The plan is drawn on geometry that sits in the wrong physical coordinates, and the robot does not reach the walk's end.</p>
+        </div>
+      </div>
+      <div class="video-card">
+        <video controls preload="none" playsinline
+               poster="./static/images/poster_P2.jpg"
+               src="./static/videos/RouteA-P2.mp4"></video>
+        <div class="video-meta">
+          <span class="video-tag">P2 &middot; Route A</span>
+          <h4>The same depth at odometry poses</h4>
+          <p>Identical predicted geometry, placed at the recorded poses instead. Nothing about the depth changed; only where it was put.</p>
+        </div>
+      </div>
+      <div class="video-card">
+        <video controls preload="none" playsinline
+               poster="./static/images/poster_P3.jpg"
+               src="./static/videos/RouteA-P3.mp4"></video>
+        <div class="video-meta">
+          <span class="video-tag">P3 &middot; Route A</span>
+          <h4>The lidar's own geometry</h4>
+          <p>A map the robot built itself, as an upper reference for what the route allows.</p>
+        </div>
+      </div>
+      <div class="video-card">
+        <video controls preload="none" playsinline
+               poster="./static/images/poster_P4.jpg"
+               src="./static/videos/RouteA-P4.mp4"></video>
+        <div class="video-meta">
+          <span class="video-tag">P4 &middot; Route A</span>
+          <h4>LoTIS, carrying no map</h4>
+          <p>A relative method that conditions each action on the current view, with no metric map at all.</p>
+        </div>
+      </div>
+    </div>
+
     <div class="columns is-centered" style="margin-top: 0.5rem;">
       <div class="column">
         <div class="figure-card">
