@@ -1,0 +1,210 @@
+/* Base from the Nerfies project page template (CC BY-SA 4.0). */
+
+body {
+  font-family: 'Noto Sans', sans-serif;
+  background-color: #eef0f3;
+  color: #1f2733;
+}
+
+.link-block a {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.publication-title,
+.publication-authors,
+.teaser {
+  font-family: 'Google Sans', sans-serif;
+}
+
+.publication-venue {
+  color: #555;
+  width: fit-content;
+  font-weight: bold;
+}
+
+.author-block {
+  display: inline-block;
+}
+
+/* ============================================================
+   Project page custom additions
+   ============================================================ */
+
+:root {
+  --accent: #7a4a90;
+  --accent-dark: #55305f;
+  --accent-soft: #f2eaf6;
+  --ink: #1f2733;
+}
+
+.hero,
+.section,
+.footer {
+  background-color: transparent;
+}
+
+.hero {
+  background: linear-gradient(180deg, #f7f8fa 0%, #eef0f3 100%);
+}
+
+.publication-title {
+  line-height: 1.15;
+}
+
+.title-gradient {
+  background: linear-gradient(90deg, #55305f 0%, #7a4a90 45%, #b07ec4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle-tagline {
+  color: #4a5568;
+  font-family: 'Google Sans', sans-serif;
+}
+
+.is-anonymized {
+  color: #888;
+  font-style: italic;
+}
+
+/* Placeholder links for assets that are not published yet. */
+.button-soon {
+  background-color: #d7dbe2;
+  color: #6b7280;
+  border-color: #d7dbe2;
+  cursor: not-allowed;
+  pointer-events: none;
+  box-shadow: none;
+}
+.button-soon .icon {
+  color: #93a0b3;
+}
+
+.publication-links .button {
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.publication-links .button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
+}
+
+/* Section headers */
+.section-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+
+/* Figure cards */
+.figure-card {
+  background: #fff;
+  border: 1px solid #e7ebf1;
+  border-radius: 14px;
+  padding: 1rem 1rem 0.75rem;
+  box-shadow: 0 4px 16px rgba(20, 40, 90, 0.06);
+}
+.figure-card img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+}
+.figure-card .figure-caption {
+  font-size: 0.92rem;
+  color: #4a5568;
+  margin-top: 0.6rem;
+  text-align: left;
+}
+
+/* Takeaway / method pills */
+.phase-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+@media screen and (max-width: 768px) {
+  .phase-cards { grid-template-columns: 1fr; }
+}
+.phase-card {
+  background: #fff;
+  border: 1px solid #e7ebf1;
+  border-radius: 14px;
+  padding: 1.25rem 1.35rem;
+  box-shadow: 0 4px 16px rgba(20, 40, 90, 0.06);
+  text-align: left;
+}
+.phase-card .phase-kicker {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.phase-card h4 {
+  font-family: 'Google Sans', sans-serif;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0.15rem 0 0.4rem;
+  font-size: 1.05rem;
+}
+.phase-card p {
+  font-size: 0.92rem;
+  color: #5a6573;
+}
+
+/* Headline numbers */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+@media screen and (max-width: 768px) {
+  .stat-row { grid-template-columns: 1fr; }
+}
+.stat-card {
+  background: #fff;
+  border: 1px solid #e7ebf1;
+  border-radius: 14px;
+  padding: 1.25rem 1rem;
+  box-shadow: 0 4px 16px rgba(20, 40, 90, 0.06);
+  text-align: center;
+}
+.stat-card .stat-value {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.stat-card .stat-label {
+  font-size: 0.86rem;
+  color: #5a6573;
+  margin-top: 0.4rem;
+}
+
+.contrib-list li {
+  margin-bottom: 0.5rem;
+}
+
+/* BibTeX */
+pre.bibtex {
+  background: #0f1320;
+  color: #e6eaf2;
+  border-radius: 12px;
+  padding: 1.25rem 1.4rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.anon-note {
+  font-size: 0.85rem;
+  color: #6b7280;
+}

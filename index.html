@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="We test whether feed-forward 3D reconstruction can replace relative navigation maps, by planning and driving on the predicted floor in HM3D and on a Unitree Go2.">
+  <meta name="keywords" content="visual navigation, feed-forward reconstruction, metric mapping, topological navigation, quadruped">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How Far Can a Feed-Forward Map Take a Robot?</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="How Far Can a Feed-Forward Map Take a Robot?">
+  <meta property="og:description" content="Predicted floors often connect. They are still in the wrong place.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="./static/images/story.png">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+</head>
+<body>
+
+<!-- ============================ HERO ============================ -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">
+            How Far Can a <span class="title-gradient">Feed-Forward Map</span> Take a Robot?
+          </h1>
+
+          <p class="subtitle is-5 subtitle-tagline" style="margin-top: 1rem;">
+            Predicted floors often connect. They are still in the wrong place.
+          </p>
+
+          <!-- Authors withheld: paper is under double-blind review. -->
+          <div class="is-size-5 publication-authors" style="margin-top: 1.25rem;">
+            <span class="author-block is-anonymized">Anonymous Authors</span>
+          </div>
+          <div class="is-size-6 publication-venue" style="margin: 0.6rem auto 0;">
+            Under review at ICRA 2027
+          </div>
+
+          <!-- Links -->
+          <div class="column has-text-centered" style="margin-top: 1.4rem;">
+            <div class="publication-links">
+              <span class="link-block">
+                <a class="button is-rounded is-medium is-dark" href="./static/paper.pdf">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- TODO: link the arXiv preprint once review allows it. -->
+              <span class="link-block">
+                <a class="button is-rounded is-medium button-soon" aria-disabled="true" title="Not available yet">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv (coming soon)</span>
+                </a>
+              </span>
+              <!-- TODO: link the public code repository once it is released. -->
+              <span class="link-block">
+                <a class="button is-rounded is-medium button-soon" aria-disabled="true" title="Not available yet">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code (coming soon)</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TEASER ============================ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="figure-card">
+      <img src="./static/images/story.png"
+           alt="The same episode planned from the same predicted depth under two sets of poses.">
+      <p class="figure-caption">
+        Scal3R's per-frame depth on the same episode under two trajectories. With Scal3R's poses
+        (left), the planned route hits a wall. At the recorded poses (right), it reaches the goal.
+        Plum is the predicted route, tan is the simulator route, black is the driven path, and red
+        marks collisions and the failed stop.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ABSTRACT ============================ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            An image-navigation system can keep a graph of images, objects or pixels, or reconstruct
+            once and plan in 3D. Feed-forward reconstruction makes the latter tempting: a video
+            produces posed geometry in one pass. If that geometry is ready for navigation, the
+            relative maps and learned controllers used by topological methods become unnecessary.
+            We test this premise. We rasterise the predicted floor, join adjacent cells under a
+            step-height rule and execute routes with perfect localisation on ObjectReact's HM3D
+            split and a Unitree Go2. The floor graphs often connect and the local geometry looks
+            plausible, yet planned routes miss the true navigable floor because the predicted
+            trajectory places surfaces in the wrong physical coordinates. Floor IoU and route-local
+            error can detect this misplacement. For Scal3R, reusing predicted depth at odometry
+            poses turns many failed maps into drivable ones while connectivity stays unchanged. A
+            camera-height check provides a scene-reference-free consistency test before the robot
+            moves. Relative image and topological methods remain useful because each motion is
+            conditioned on the current view. Current feed-forward maps are not yet reliable for
+            direct metric planning. Training losses should penalise geometric misplacement along
+            routes, and evaluation should measure the same failure.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ KEY NUMBERS ============================ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <p class="section-eyebrow has-text-centered">Headline result</p>
+    <h2 class="title is-3 has-text-centered">Pose, not geometry, is what breaks</h2>
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-value">2 / 32</div>
+        <div class="stat-label">arrivals with Scal3R's own predicted poses</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">26 / 32</div>
+        <div class="stat-label">arrivals with the same depth at recorded poses</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">unchanged</div>
+        <div class="stat-label">floor-graph connectivity under both pose sets</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CONTRIBUTIONS ============================ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <p class="section-eyebrow has-text-centered">Key ideas</p>
+        <h2 class="title is-3 has-text-centered">What we do</h2>
+        <div class="content">
+          <ul class="contrib-list">
+            <li>We test whether feed-forward 3D maps can replace relative navigation maps by
+              planning and executing on outputs from four frontends under perfect localisation.</li>
+            <li>We show that map connectivity misses navigation-critical placement errors by
+              comparing predicted floors and planned routes with Habitat's navmesh.</li>
+            <li>We isolate pose error by rebuilding Scal3R maps from the same predicted depth at
+              recorded odometry poses, improving closed-loop execution in simulation and on a
+              Unitree Go2.</li>
+            <li>We quantify how camera-height consistency, field of view, frame spacing and robot
+              width affect whether the predicted floor supplies a route.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ METHOD ============================ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <p class="section-eyebrow has-text-centered">Method</p>
+    <h2 class="title is-3 has-text-centered">From frames to a drivable floor</h2>
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="figure-card">
+          <img src="./static/images/method.png"
+               alt="Pipeline from video frames to the floor component reachable from the goal.">
+          <p class="figure-caption">
+            The method on one episode, from frames to the floor the goal reaches. Plum is reached,
+            green is mapped but unreached.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-cards">
+      <div class="phase-card">
+        <div class="phase-kicker">Build</div>
+        <h4>Rasterise and connect</h4>
+        <p>
+          We rasterise the predicted floor into cells and join adjacent cells under a step-height
+          rule. This gives a floor graph directly from the frontend's output, with no relative map
+          and no learnt controller.
+        </p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-kicker">Drive</div>
+        <h4>Plan and execute</h4>
+        <p>
+          We plan on that graph and execute the route with perfect localisation, on ObjectReact's
+          HM3D split and on a Unitree Go2. The question is not whether a path exists in the map, but
+          whether it lands on the floor the robot must drive.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CONNECTIVITY ============================ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <p class="section-eyebrow has-text-centered">Connectivity results</p>
+    <h2 class="title is-3 has-text-centered">A connected map is not a drivable map</h2>
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="figure-card">
+          <img src="./static/images/input_conditions.png"
+               alt="Input conditions for the floor graph: field of view and frame spacing.">
+          <p class="figure-caption">
+            Input conditions for the floor graph. Top, the nearest floor seen by the full and
+            cropped cameras. Bottom, the frame-spacing sweeps for all three RGB frontends. Colour
+            identifies the frontend. Filled maps connect and open maps are severed.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered" style="margin-top: 0.5rem;">
+      <div class="column">
+        <div class="figure-card">
+          <img src="./static/images/frame_fields.png"
+               alt="Three walks reconstructed from five input budgets.">
+          <p class="figure-caption">
+            Three walks reconstructed from five input budgets. Deep plum is mapped floor reachable
+            from the goal (ring), green is mapped floor outside that component, and black is the
+            camera track. Every cell covers the same 23 &times; 11.5&nbsp;m area, and each row is
+            centred in its frontend's output frame.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ POSED MAPS ============================ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <p class="section-eyebrow has-text-centered">Posed maps</p>
+    <h2 class="title is-3 has-text-centered">Separating depth from pose</h2>
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="figure-card">
+          <img src="./static/images/inherit.png"
+               alt="The same predicted depth placed at predicted poses versus recorded poses.">
+          <p class="figure-caption">
+            Depth and pose leave these models together. Placing the same predicted depth at recorded
+            odometry poses turns many failed maps into drivable ones, while the floor graph's
+            connectivity stays unchanged.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered" style="margin-top: 0.5rem;">
+      <div class="column">
+        <div class="figure-card">
+          <img src="./static/images/odometry_sensitivity.png"
+               alt="Arrivals and reachable floor under accumulated synthetic pose noise.">
+          <p class="figure-caption">
+            Recorded-pose Scal3R under accumulated synthetic pose noise. Grey points are the three
+            noise seeds. Arrivals fall as endpoint drift grows, while median reachable floor stays
+            nearly flat &mdash; the map still looks fine as the robot stops arriving.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ GO2 ============================ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <p class="section-eyebrow has-text-centered">Real world</p>
+    <h2 class="title is-3 has-text-centered">Driving a Unitree Go2</h2>
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="figure-card">
+          <img src="./static/images/go2.png"
+               alt="Go2 routes: predicted maps, lidar geometry, and driven paths.">
+          <p class="figure-caption">
+            Top, route A from the same Scal3R depth at two sets of poses: plum the plan, black every
+            driven run, red a collision, a pin where a run did not finish, blue the walk's end.
+            Bottom, the three routes from above on the robot's lidar, with all 34 runs, one colour
+            per case.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered" style="margin-top: 0.5rem;">
+      <div class="column">
+        <div class="figure-card">
+          <img src="./static/images/go2_route03.png" alt="Route 3: every rollout over the walk it retraced.">
+          <p class="figure-caption">
+            Route 3. Every rollout over the walk it retraced: circle is the start, star the walk's
+            end, cross where each trial stopped.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered" style="margin-top: 0.5rem;">
+      <div class="column">
+        <div class="figure-card">
+          <img src="./static/images/go2_route04.png" alt="Route 4: every rollout over the walk it retraced.">
+          <p class="figure-caption">Route 4. Every rollout over the walk it retraced.</p>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered" style="margin-top: 0.5rem;">
+      <div class="column">
+        <div class="figure-card">
+          <img src="./static/images/go2_route06.png" alt="Route 6: every rollout over the walk it retraced.">
+          <p class="figure-caption">Route 6. Every rollout over the walk it retraced.</p>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered" style="margin-top: 0.5rem;">
+      <div class="column">
+        <div class="figure-card">
+          <img src="./static/images/go2_null_paired.png" alt="Paired null-test rollouts.">
+          <p class="figure-caption">Paired null-test rollouts.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CONCLUSION ============================ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <p class="section-eyebrow">Takeaway</p>
+        <h2 class="title is-3">Conclusion</h2>
+        <div class="content has-text-justified">
+          <p>
+            The tested frontends often reconstruct plausible local surfaces and connect the mapping
+            run's endpoints. The route still fails when pose error puts those surfaces at the wrong
+            coordinates. Connectivity cannot detect that shift. A score against the true floor can
+            detect it, but a robot does not have the true floor at deployment.
+          </p>
+          <p>
+            Scal3R shows how much of the failure comes from pose. Replacing its poses with exact
+            recorded poses raises arrivals from 2 of 32 to 26 of 32, even though every graph connects
+            under both pose sets. Synthetic drift removes this gain while reachable floor stays
+            almost constant. The camera-height check catches gross scale errors before driving, but
+            it does not certify a route.
+          </p>
+          <p>
+            Feed-forward reconstruction cannot yet replace relative navigation by being rasterised
+            and planned on once. It may reconstruct the right surfaces at the wrong coordinates.
+            Relative methods remain useful because each action is tied to the current view. Direct
+            metric mapping needs route-placement losses and benchmarks that execute the resulting
+            routes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ BIBTEX ============================ -->
+<section class="section" id="bibtex" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+          <h2 class="title is-3" style="margin-bottom: 0;">BibTeX</h2>
+          <button id="copy-bibtex" class="button is-small is-rounded is-light">Copy</button>
+        </div>
+        <pre class="bibtex" style="margin-top: 1rem;"><code id="bibtex-text">@misc{anonymous2027feedforward,
+  title  = {How Far Can a Feed-Forward Map Take a Robot?},
+  author = {Anonymous Authors},
+  year   = {2027},
+  note   = {Under review at the IEEE International Conference on Robotics and Automation (ICRA)}
+}</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p class="anon-note">
+            This page is anonymised for double-blind review. It carries no author, affiliation or
+            institutional information.
+          </p>
+          <p>
+            Website template borrowed from
+            <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, released under a
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons
+            Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="./static/js/index.js"></script>
+</body>
+</html>
