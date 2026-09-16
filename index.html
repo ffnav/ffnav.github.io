@@ -300,13 +300,49 @@
       </div>
     </div>
 
+    <p class="section-eyebrow has-text-centered" style="margin-top: 2.75rem;">The four cases</p>
+    <h2 class="title is-3 has-text-centered">What P1&ndash;P4 mean</h2>
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="content">
+          <p>
+            Each route is driven under four conditions. P1 and P2 use the <em>same</em> predicted
+            depth and differ only in whose poses it is placed at, which is what isolates pose error
+            from depth error. P3 and P4 are references: one map the robot built itself, and one
+            method that carries no map at all. These labels appear in the figures below and in the
+            supplementary videos.
+          </p>
+          <div class="table-wrap">
+            <table class="results-table">
+              <thead>
+                <tr><th>Case</th><th>Map</th><th>Poses</th><th>Role</th></tr>
+              </thead>
+              <tbody>
+                <tr class="row-ours"><td>P1</td><td>Scal3R depth</td><td>Scal3R's own predicted poses</td><td>Feed-forward map, used as predicted</td></tr>
+                <tr class="row-ours"><td>P2</td><td>the same Scal3R depth</td><td>robot odometry</td><td>Same depth, correct placement</td></tr>
+                <tr><td>P3</td><td>the lidar's own geometry</td><td>robot odometry</td><td>Upper reference</td></tr>
+                <tr><td>P4</td><td>none &mdash; LoTIS</td><td>&mdash;</td><td>Relative method, no map</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="table-note">
+            P1 against P2 is the comparison the paper turns on: identical geometry, different
+            coordinates. The paper names the three routes A, B and C; the recordings behind them are
+            <code>route-03b</code>, <code>route-04</code> and <code>route-06</code>.
+          </p>
+        </div>
+      </div>
+    </div>
+
     <div class="columns is-centered" style="margin-top: 0.5rem;">
       <div class="column">
         <div class="figure-card">
-          <img src="./static/images/go2_route03.png" alt="Route 3: every rollout over the walk it retraced.">
+          <img src="./static/images/go2_route_a.png"
+               alt="Route A: every rollout over the walk it retraced, one panel per case.">
           <p class="figure-caption">
-            Route 3. Every rollout over the walk it retraced: circle is the start, star the walk's
-            end, cross where each trial stopped.
+            <strong>Route A</strong> (<code>route-03b</code>), 11.25&nbsp;m through a doorway. Every
+            rollout over the walk it retraced, one panel per case: circle is the start, star the
+            walk's end, cross where each trial stopped. Solid lines completed, dashed did not.
           </p>
         </div>
       </div>
@@ -314,24 +350,22 @@
     <div class="columns is-centered" style="margin-top: 0.5rem;">
       <div class="column">
         <div class="figure-card">
-          <img src="./static/images/go2_route04.png" alt="Route 4: every rollout over the walk it retraced.">
-          <p class="figure-caption">Route 4. Every rollout over the walk it retraced.</p>
+          <img src="./static/images/go2_route_b.png"
+               alt="Route B: every rollout over the walk it retraced, one panel per case.">
+          <p class="figure-caption">
+            <strong>Route B</strong> (<code>route-04</code>), 9.11&nbsp;m, a door then a U-turn.
+          </p>
         </div>
       </div>
     </div>
     <div class="columns is-centered" style="margin-top: 0.5rem;">
       <div class="column">
         <div class="figure-card">
-          <img src="./static/images/go2_route06.png" alt="Route 6: every rollout over the walk it retraced.">
-          <p class="figure-caption">Route 6. Every rollout over the walk it retraced.</p>
-        </div>
-      </div>
-    </div>
-    <div class="columns is-centered" style="margin-top: 0.5rem;">
-      <div class="column">
-        <div class="figure-card">
-          <img src="./static/images/go2_null_paired.png" alt="Paired null-test rollouts.">
-          <p class="figure-caption">Paired null-test rollouts.</p>
+          <img src="./static/images/go2_route_c.png"
+               alt="Route C: every rollout over the walk it retraced, one panel per case.">
+          <p class="figure-caption">
+            <strong>Route C</strong> (<code>route-06</code>), 7.90&nbsp;m through a curtained door.
+          </p>
         </div>
       </div>
     </div>
