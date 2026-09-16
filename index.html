@@ -305,8 +305,8 @@
             </table>
           </div>
           <p class="table-note">
-            P1 against P2 is the comparison the paper turns on: identical geometry, different
-            coordinates.
+            Because P1 and P2 carry the same predicted surfaces, any difference between them below
+            is pose error and nothing else.
           </p>
         </div>
       </div>
@@ -377,14 +377,16 @@
       <div class="column is-four-fifths">
         <div class="content">
           <p>
-            In this section, each route appears twice. The still shows all the trials together. The
-            animation is exactly how the Go2 robot traversed.
+            In this section, each route has two visualisations. The still shows all the trials
+            together. The animation is exactly how the Go2 robot traversed.
           </p>
           <p>
-            The recorded walk is grey everywhere. Circle marks the start, star marks the end, and a
-            cross marks where each trial stopped. Solid lines completed the route and dashed lines
-            failed. In the animation, the faint line is that case's plan and the dot tracks the
-            robot's progress.
+            The recorded walk is marked with grey. Circle marks the common start, kept same for all
+            trials of a route. Star marks the route end and a cross marks the trial end. We use solid
+            lines when the robot succeeded and dashed lines for failures. In the still, a square marks
+            the route's tightest point, the narrowest gap the robot has to drive through, taken from
+            the recording's own lidar. In the animation, faint line is the case's plan and the dot
+            tracks the robot's location through the trial.
           </p>
         </div>
       </div>
