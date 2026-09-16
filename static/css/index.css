@@ -32,6 +32,7 @@ body {
    ============================================================ */
 
 :root {
+  --rule: #e2e2e8;
   --accent: #7a4a90;
   --accent-dark: #55305f;
   --accent-soft: #f2eaf6;
@@ -269,8 +270,16 @@ table.results-table .row-ours td:first-child {
 }
 
 .route-heading {
-  margin-top: 2.5rem;
-  margin-bottom: 1rem;
+  margin-top: 4.5rem;
+  margin-bottom: 1.1rem;
+  padding-top: 2.25rem;
+  border-top: 1px solid var(--rule, #e2e2e8);
   font-family: 'Google Sans', sans-serif;
   color: var(--accent-dark);
+}
+/* The first route follows the section text, so it needs no rule and less air. */
+.route-heading:first-of-type {
+  margin-top: 1.75rem;
+  padding-top: 0;
+  border-top: none;
 }

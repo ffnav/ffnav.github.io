@@ -331,7 +331,6 @@
         <div class="video-meta">
           <span class="video-tag">Route A &middot; full session</span>
           <h4>Two consecutive recordings, at 4&times; speed</h4>
-          <p>The route driven end to end across both recordings, played at four times real time.</p>
         </div>
       </div>
     </div>
@@ -343,7 +342,6 @@
         <div class="video-meta">
           <span class="video-tag">P1 &middot; Route A</span>
           <h4>Scal3R depth at Scal3R's own poses</h4>
-          <p>The feed-forward map used exactly as predicted. The plan is drawn on geometry that sits in the wrong physical coordinates, and the robot does not reach the walk's end.</p>
         </div>
       </div>
       <div class="video-card">
@@ -353,7 +351,6 @@
         <div class="video-meta">
           <span class="video-tag">P2 &middot; Route A</span>
           <h4>The same depth at odometry poses</h4>
-          <p>Identical predicted geometry, placed at the recorded poses instead. Nothing about the depth changed; only where it was put.</p>
         </div>
       </div>
       <div class="video-card">
@@ -363,7 +360,6 @@
         <div class="video-meta">
           <span class="video-tag">P3 &middot; Route A</span>
           <h4>The lidar's own geometry</h4>
-          <p>A map the robot built itself, as an upper reference for what the route allows.</p>
         </div>
       </div>
       <div class="video-card">
@@ -373,7 +369,6 @@
         <div class="video-meta">
           <span class="video-tag">P4 &middot; Route A</span>
           <h4>LoTIS, carrying no map</h4>
-          <p>A relative method that conditions each action on the current view, with no metric map at all.</p>
         </div>
       </div>
     </div>
@@ -382,10 +377,19 @@
     <h2 class="title is-3 has-text-centered">The plan and the drive, side by side</h2>
     <div class="columns is-centered">
       <div class="column is-four-fifths">
-        <p class="has-text-centered" style="color:#5a6573; font-size:0.95rem;">
-          For each route: every trial at once, then the same four cases advancing one step at a
-          time over the plan each was given, against the recorded walk in grey.
-        </p>
+        <div class="content">
+          <p>
+            Each route appears twice. The still holds every trial at once, one panel per case. The
+            animation below it advances the same four cases a step at a time, so the plan a case was
+            given and the path it actually drove can be read against each other as they unfold.
+          </p>
+          <p>
+            The recorded walk is grey in both. In the still, a circle marks the start, a star the
+            walk's end, and a cross where each trial stopped; solid lines completed the route and
+            dashed lines did not. In the animation, the faint line is that case's plan and the dot is
+            how far it had driven.
+          </p>
+        </div>
       </div>
     </div>
 
@@ -396,7 +400,6 @@
         <div class="figure-card">
           <img src="./static/images/go2_route_a.png"
                alt="Route A: every rollout over the walk it retraced, one panel per case.">
-          <p class="figure-caption">Every rollout over the walk it retraced, one panel per case: circle is the start, star the walk's end, cross where each trial stopped. Solid lines completed, dashed did not.</p>
         </div>
       </div>
     </div>
@@ -406,11 +409,6 @@
         <video controls preload="none" playsinline
                poster="./static/images/poster_followA.jpg"
                src="./static/videos/follow_routeA.mp4"></video>
-        <div class="video-meta">
-          <span class="video-tag">Route A &middot; animated</span>
-          <h4>The plan and the drive, step by step</h4>
-          <p>The plan each case drove and the path it actually took, advancing together. Where a plan sits away from the recorded walk, the drive follows it there.</p>
-        </div>
       </div>
     </div>
 
@@ -421,7 +419,6 @@
         <div class="figure-card">
           <img src="./static/images/go2_route_b.png"
                alt="Route B: every rollout over the walk it retraced, one panel per case.">
-          <p class="figure-caption">Every rollout over the walk it retraced, one panel per case.</p>
         </div>
       </div>
     </div>
@@ -431,11 +428,6 @@
         <video controls preload="none" playsinline
                poster="./static/images/poster_followB.jpg"
                src="./static/videos/follow_routeB.mp4"></video>
-        <div class="video-meta">
-          <span class="video-tag">Route B &middot; animated</span>
-          <h4>The plan and the drive, step by step</h4>
-          <p>The same four cases on a route that turns back on itself.</p>
-        </div>
       </div>
     </div>
 
@@ -446,7 +438,6 @@
         <div class="figure-card">
           <img src="./static/images/go2_route_c.png"
                alt="Route C: every rollout over the walk it retraced, one panel per case.">
-          <p class="figure-caption">Every rollout over the walk it retraced, one panel per case.</p>
         </div>
       </div>
     </div>
@@ -456,11 +447,6 @@
         <video controls preload="none" playsinline
                poster="./static/images/poster_followC.jpg"
                src="./static/videos/follow_routeC.mp4"></video>
-        <div class="video-meta">
-          <span class="video-tag">Route C &middot; animated</span>
-          <h4>The plan and the drive, step by step</h4>
-          <p>The shortest of the three, and the only one where every case left a plan.</p>
-        </div>
       </div>
     </div>
   </div>
