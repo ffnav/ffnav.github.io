@@ -67,7 +67,6 @@ body {
 
 .is-anonymized {
   color: #888;
-  font-style: italic;
 }
 
 /* Placeholder links for assets that are not published yet. */
@@ -114,6 +113,14 @@ body {
   display: block;
   border-radius: 12px;
 }
+/* One step down from full width. */
+.figure-card.is-medium img,
+.figure-card.is-medium .figure-caption {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Single-column figures in the paper: keep them from dominating the page. */
 .figure-card.is-narrow img {
   max-width: 560px;
