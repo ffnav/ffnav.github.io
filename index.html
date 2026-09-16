@@ -239,7 +239,10 @@
             Each route is driven under four conditions. P1 and P2 use the same predicted depth and
             differ only in whose poses it is placed at, which isolates pose error from depth error.
             P3 and P4 are references. P3 uses one map the robot built itself. P4 has no map at all.
-            These labels appear in the figures below and in the supplementary videos.
+          </p>
+          <p>
+            In the paper, the figures name the cases by description to avoid confusion. Here, we
+            explore each in more detail, so they are labeled P1 to P4.
           </p>
           <div class="table-wrap">
             <table class="results-table">
@@ -256,9 +259,7 @@
           </div>
           <p class="table-note">
             Because P1 and P2 carry the same predicted surfaces, any difference between them below
-            is pose error and nothing else. The paper's figures name these cases by description
-            rather than by number; the scatter of every run spells P1 as "Scal3R depth, its own
-            poses" and P4 as "LoTIS, no map".
+            is purely pose error.
           </p>
         </div>
       </div>
