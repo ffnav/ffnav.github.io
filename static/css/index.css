@@ -212,12 +212,6 @@ table.results-table .row-ours {
 table.results-table .row-ours td:first-child {
   color: var(--accent-dark);
 }
-.table-note {
-  font-size: 0.82rem;
-  color: #6b7280;
-  margin-top: 0.5rem;
-}
-.table-note code,
 .figure-caption code {
   background: #eef1f6;
   border-radius: 4px;
