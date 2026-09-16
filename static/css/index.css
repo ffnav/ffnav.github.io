@@ -113,6 +113,18 @@ body {
   display: block;
   border-radius: 12px;
 }
+/* Single-column figures in the paper: keep them from dominating the page. */
+.figure-card.is-narrow img {
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.figure-card.is-narrow .figure-caption {
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .figure-card .figure-caption {
   font-size: 0.92rem;
   color: #4a5568;
